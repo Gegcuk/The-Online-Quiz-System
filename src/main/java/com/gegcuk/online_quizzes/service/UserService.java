@@ -1,11 +1,11 @@
 package com.gegcuk.online_quizzes.service;
 
-import java.util.Optional;
-
 import com.gegcuk.online_quizzes.model.User;
 
-public interface  UserService {
-    User saveUser(User user);
-    Optional<User> findByUsername(String username);
-    Optional<User> findByEmail(String email);
+public interface UserService {
+    User register(User user);
+    User updateUser(User user);
+    void deleteUser(Integer id);
+    User findByUsername(String username);
+    User findByEmail(String email);
 }
