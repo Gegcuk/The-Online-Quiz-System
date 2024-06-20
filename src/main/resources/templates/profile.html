@@ -1,26 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org">
-    <head>
-        <title>User Profile</title>
-    </head>
-    <body>
-        <h2>User Profile</h2>
-        <form th:action="@{/profile}" method="post">
-            <div>
-                <label>Username:</label>
-                <input type="text" name="username" th:value="${user.username}" readonly/>
-            </div>
-            <div>
-                <label>Email:</label>
-                <input type="text" name="email" th:value="${user.username}"/>
-            </div>
-            <div>
-                <label>Password:</label>
-                <input type="password" name="password"/>
-            </div>
-            <div>
-                <button type="submit">Update profile</button>
-            </div>
-        </form>
-    </body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Profile</h1>
+    <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+    <p><strong>Role:</strong> <span th:text="${user.role}"></span></p>
+    <br>
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/login}">Login</a>
+</body>
 </html>

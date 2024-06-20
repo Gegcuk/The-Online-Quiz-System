@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home</title>
+    <title>Home - User List</title>
 </head>
 <body>
-    <h2>Welcome, <span th:text="${username}">User</h2>
-    <a href="/profile">Profile</a>
-    <a href="/logout">Logout</a>
+    <h1>All Users</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.role}"></td>
+                <td><a th:href="@{/profile/{id}(id=${user.userId})}">Profile</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/login}">Login</a>
+    <a th:href="@{/profile}">Profile</a>
 </body>
 </html>

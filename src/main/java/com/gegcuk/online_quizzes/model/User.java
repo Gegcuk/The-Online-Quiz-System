@@ -10,35 +10,38 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int userId;
 
-    @Column(nullable=false, unique=true, length=50)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
+
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable=false, unique=true, length=100)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable=false, length=32)
+    @Column(nullable = false)
     private String password;
 
-    @Column(nullable=false, length=50)
-    private String role;
+    @Column(nullable = false)
+    private String role = "user";
 
-    @Column(nullable=false)
-    private LocalDateTime createdAt;
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(nullable=false)
-    private LocalDateTime updatedAt;
+    @Column(nullable = false)
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
-    public int getUserId() {
+    // Getters and Setters
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -88,6 +91,5 @@ public class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }   
-
+    }
 }
