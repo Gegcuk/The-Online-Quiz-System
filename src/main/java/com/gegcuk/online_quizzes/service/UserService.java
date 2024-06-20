@@ -22,7 +22,8 @@ public class UserService {
     }
 
     public User registerUser(User user) {
-        if (userRepository.findByUsername(user.getUsername()) != null || userRepository.findByEmail(user.getEmail()) != null) {
+        if (userRepository.findByUsername(user.getUsername()) != null
+                || userRepository.findByEmail(user.getEmail()) != null) {
             throw new RuntimeException("Username or email already exists.");
         }
 
