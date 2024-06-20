@@ -1,6 +1,8 @@
 package com.gegcuk.online_quizzes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,7 @@ import com.gegcuk.online_quizzes.model.User;
 import com.gegcuk.online_quizzes.service.UserService;
 
 @Controller
-@RequestMapping("/register")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -22,13 +24,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public String registerUser(@ModelAttribute User user, Model model) {
         try {
             userService.registerUser(user);
@@ -38,5 +40,12 @@ public class UserController {
         }
         model.addAttribute("user", new User()); // Reset the form
         return "register"; // Stay on the registration page
+    }
+
+    @GetMapping("/profile")
+    public String profile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        User user = userService.findByUsername(userDetails.getUsername());
+        model.addAttribute("user", user);
+        return "profile";
     }
 }

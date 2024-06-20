@@ -21,12 +21,20 @@
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.role}"></td>
-                <td><a th:href="@{/profile/{id}(id=${user.userId})}">Profile</a></td>
+                <td><a th:href="@{/user/profile/{id}(id=${user.userId})}">Profile</a></td>
             </tr>
         </tbody>
     </table>
     <br>
-    <a th:href="@{/login}">Login</a>
-    <a th:href="@{/profile}">Profile</a>
+    <form th:action="@{/login}" method="get" style="display:inline;">
+        <button type="submit">Login</button>
+    </form>
+    <form th:action="@{/user/profile}" method="get" style="display:inline;">
+        <button type="submit">Profile</button>
+    </form>
+    <form th:action="@{/logout}" method="post" style="display:inline;">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit">Logout</button>
+    </form>
 </body>
 </html>

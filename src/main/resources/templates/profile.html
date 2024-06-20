@@ -5,11 +5,39 @@
 </head>
 <body>
     <h1>Profile</h1>
-    <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
-    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
-    <p><strong>Role:</strong> <span th:text="${user.role}"></span></p>
+    <table>
+        <tr>
+            <th>ID:</th>
+            <td th:text="${user.userId}"></td>
+        </tr>
+        <tr>
+            <th>Username:</th>
+            <td th:text="${user.username}"></td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td th:text="${user.email}"></td>
+        </tr>
+        <tr>
+            <th>Role:</th>
+            <td th:text="${user.role}"></td>
+        </tr>
+        <tr>
+            <th>Created At:</th>
+            <td th:text="${user.createdAt}"></td>
+        </tr>
+        <tr>
+            <th>Updated At:</th>
+            <td th:text="${user.updatedAt}"></td>
+        </tr>
+    </table>
     <br>
-    <a th:href="@{/}">Home</a>
-    <a th:href="@{/login}">Login</a>
+    <form th:action="@{/logout}" method="post" style="display:inline;">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit">Logout</button>
+    </form>
+    <form th:action="@{/}" method="get" style="display:inline;">
+        <button type="submit">Home</button>
+    </form>
 </body>
 </html>
