@@ -10,7 +10,7 @@ The Online Quiz System is designed to allow users to take quizzes on various top
 - **Spring Boot:** For building the web application
 - **Thymeleaf:** For creating dynamic web pages
 - **Hibernate:** For ORM to manage database operations
-- **H2 Database:** For in-memory database during development
+- **MySQL:** For database during development
 - **JUnit:** For unit testing
 - **RESTful APIs:** To create endpoints for quizzes and questions
 - **Docker:** To containerize the application
