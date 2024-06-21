@@ -3,44 +3,49 @@
 
 <head>
     <title>Profile</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 
 <body>
-    <h1>Profile</h1>
-    <table>
-        <tr>
-            <th>ID:</th>
-            <td th:text="${user.userId}"></td>
-        </tr>
-        <tr>
-            <th>Username:</th>
-            <td th:text="${user.username}"></td>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <td th:text="${user.email}"></td>
-        </tr>
-        <tr>
-            <th>Role:</th>
-            <td th:text="${user.role}"></td>
-        </tr>
-        <tr>
-            <th>Created At:</th>
-            <td th:text="${user.createdAt}"></td>
-        </tr>
-        <tr>
-            <th>Updated At:</th>
-            <td th:text="${user.updatedAt}"></td>
-        </tr>
-    </table>
-    <br>
-    <form th:action="@{/logout}" method="post" style="display:inline;">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <button type="submit">Logout</button>
-    </form>
-    <form th:action="@{/}" method="get" style="display:inline;">
-        <button type="submit">Home</button>
-    </form>
+    <div class="container">
+        <h1>Profile</h1>
+        <table class="profile-table">
+            <tr>
+                <th>ID:</th>
+                <td th:text="${user.userId}"></td>
+            </tr>
+            <tr>
+                <th>Username:</th>
+                <td th:text="${user.username}"></td>
+            </tr>
+            <tr>
+                <th>Email:</th>
+                <td th:text="${user.email}"></td>
+            </tr>
+            <tr>
+                <th>Role:</th>
+                <td th:text="${user.role}"></td>
+            </tr>
+            <tr>
+                <th>Created At:</th>
+                <td th:text="${user.createdAt}"></td>
+            </tr>
+            <tr>
+                <th>Updated At:</th>
+                <td th:text="${user.updatedAt}"></td>
+            </tr>
+        </table>
+        <div class="buttons">
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit" class="btn">Logout</button>
+            </form>
+            <form th:action="@{/}" method="get" style="display:inline;">
+                <button type="submit" class="btn">Home</button>
+            </form>
+        </div>
+    </div>
+    <script src="/js/scripts.js"></script>
 </body>
 
 </html>

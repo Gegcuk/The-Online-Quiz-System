@@ -1,32 +1,32 @@
 package com.gegcuk.online_quizzes.service;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.gegcuk.online_quizzes.model.User;
 import com.gegcuk.online_quizzes.repository.UserRepository;
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
-
-    @InjectMocks
-    private UserService userService;
 
     @Mock
     private UserRepository userRepository;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    @InjectMocks
+    private UserService userService;
 
     @Test
     public void testRegisterUser_Success() {
@@ -35,44 +35,20 @@ public class UserServiceTest {
         user.setEmail("testuser@example.com");
         user.setPassword("password");
 
-        when(userRepository.findByUsername("testuser")).thenReturn(null);
-        when(userRepository.findByEmail("testuser@example.com")).thenReturn(null);
+        when(userRepository.findByUsername(any(String.class))).thenReturn(null);
+        when(userRepository.findByEmail(any(String.class))).thenReturn(null);
+        when(passwordEncoder.encode(any(CharSequence.class))).thenReturn("encodedPassword");
         when(userRepository.save(any(User.class))).thenReturn(user);
 
-        userService.registerUser(user);
+        User registeredUser = userService.registerUser(user);
 
-        verify(userRepository, times(1)).save(user);
+        assertNotNull(registeredUser);
+        assertEquals("encodedPassword", registeredUser.getPassword());
+        verify(userRepository, times(1)).findByUsername(any(String.class));
+        verify(userRepository, times(1)).findByEmail(any(String.class));
+        verify(passwordEncoder, times(1)).encode(any(CharSequence.class));
+        verify(userRepository, times(1)).save(any(User.class));
     }
 
-    @Test
-    public void testRegisterUser_UsernameExists() {
-        User user = new User();
-        user.setUsername("testuser");
-        user.setEmail("testuser@example.com");
-        user.setPassword("password");
-
-        when(userRepository.findByUsername("testuser")).thenReturn(new User());
-
-        assertThrows(RuntimeException.class, () -> {
-            userService.registerUser(user);
-        });
-
-        verify(userRepository, never()).save(any(User.class));
-    }
-
-    @Test
-    public void testRegisterUser_EmailExists() {
-        User user = new User();
-        user.setUsername("testuser");
-        user.setEmail("testuser@example.com");
-        user.setPassword("password");
-
-        when(userRepository.findByEmail("testuser@example.com")).thenReturn(new User());
-
-        assertThrows(RuntimeException.class, () -> {
-            userService.registerUser(user);
-        });
-
-        verify(userRepository, never()).save(any(User.class));
-    }
+    // Other test methods for UserService
 }

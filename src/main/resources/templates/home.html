@@ -3,41 +3,46 @@
 
 <head>
     <title>Home - User List</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 
 <body>
-    <h1>All Users</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.userId}"></td>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.role}"></td>
-                <td><a th:href="@{/user/profile/{id}(id=${user.userId})}">Profile</a></td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <form th:action="@{/login}" method="get" style="display:inline;">
-        <button type="submit">Login</button>
-    </form>
-    <form th:action="@{/user/profile}" method="get" style="display:inline;">
-        <button type="submit">Profile</button>
-    </form>
-    <form th:action="@{/logout}" method="post" style="display:inline;">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <button type="submit">Logout</button>
-    </form>
+    <div class="container">
+        <h1>All Users</h1>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.userId}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td><a th:href="@{/user/profile/{id}(id=${user.userId})}" class="btn">Profile</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="buttons">
+            <form th:action="@{/user/register}" method="get">
+                <button type="submit" class="btn">Register</button>
+            </form>
+            <form th:action="@{/user/profile}" method="get">
+                <button type="submit" class="btn">Profile</button>
+            </form>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit" class="btn">Logout</button>
+            </form>
+        </div>
+    </div>
+    <script src="/js/scripts.js"></script>
 </body>
 
 </html>
